@@ -30,7 +30,7 @@ function getMsgDesc(msg) {
 }
 
 function receiversOffline(req, res) {
-  console.log("接受人" + JSON.stringify(req.params.offlinePeers) + "*******" + JSON.stringify(res.params.offlinePeers));
+  console.log("接受人" + JSON.stringify(req.params["offlinePeers"]) + "*******" + JSON.stringify(res.params["offlinePeers"]));
 
   if (req.params.convId) {
     // api v2
