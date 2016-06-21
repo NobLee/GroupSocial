@@ -47,24 +47,24 @@ function receiversOffline(req, res) {
 }
 //发送推送消息
 function sendAPNSMessage(req, res){
-    var params = req.params;
-    var q = new AV.Query('_Conversation');
-    q.equalTo ('objectId', params.convId);
-    q.limit (1);
-    q.find({
-    success: function(results) {
-        //获取用户的昵称
-        // results is an array of AV.Object.
-        var dict = results[0].get('attr');
-        var username = dict[params.fromPeer]['username']
-        var pushMessage = getAPNSPushMessage(req.params,username);
+    // var params = req.params;
+    // var q = new AV.Query('_Conversation');
+    // q.equalTo ('objectId', params.convId);
+    // q.limit (1);
+    // q.find({
+    // success: function(results) {
+    //     //获取用户的昵称
+    //     // results is an array of AV.Object.
+    //     var dict = results[0].get('attr');
+    //     var username = dict[params.fromPeer]['username']
+        var pushMessage = getAPNSPushMessage(req.params,"");
         res.success({pushMessage: pushMessage});
-    },
-    error: function(error) {
-        // error is an instance of AV.Error.
-        res.success();
-    }
-    });
+    // },
+    // error: function(error) {
+    //     // error is an instance of AV.Error.
+    //     res.success();
+    // }
+    // });
 }
 
 //设置推送消息
