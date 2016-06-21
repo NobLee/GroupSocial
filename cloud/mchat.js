@@ -30,7 +30,7 @@ function getMsgDesc(msg) {
 }
 
 function receiversOffline(req, res) {
-    console.log(req.fromPeer + "**" + res.offlinePeers );
+  console.log("接受人" + req.offlinePeers.join("@") + "*" + res.offlinePeers.join("@"));
 
   if (req.params.convId) {
     // api v2
@@ -79,7 +79,7 @@ function getAPNSPushMessage(params,userName) {
   var msg = JSON.parse(contentStr);
   var msgDesc = getMsgDesc(msg);
   if (userName) {
-      json.alert = msg._lcattrs.cy_name  + ':' + msgDesc;
+      json.alert = msg._lcattrs["cy_name"]  + ':' + msgDesc;
   } else {
       json.alert = msgDesc;
   }
