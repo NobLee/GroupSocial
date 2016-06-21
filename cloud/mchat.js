@@ -30,7 +30,7 @@ function getMsgDesc(msg) {
 }
 
 function receiversOffline(req, res) {
-  console.log("接受人" + JSON.stringify(req.offlinePeers) + "*******" + JSON.stringify(res.offlinePeers));
+  console.log("接受人" + JSON.stringify(req.params.offlinePeers) + "*******" + JSON.stringify(res.params.offlinePeers));
 
   if (req.params.convId) {
     // api v2
@@ -79,7 +79,7 @@ function getAPNSPushMessage(params,userName) {
   var msg = JSON.parse(contentStr);
   var msgDesc = getMsgDesc(msg);
   json.alert = msg._lcattrs["cy_name"]  + ':' + msgDesc;
-  
+
 //  if (msg._lcattrs && msg._lcattrs.dev) {
     //设置证书，开发时用 dev，生产环境不设置
 //    json._profile = "dev";
