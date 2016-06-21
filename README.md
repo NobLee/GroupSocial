@@ -1,2 +1,1 @@
-# GroupSocial
-群组社交
+Cloud code project for uping. Cloud Code Guide: https://cn.avoscloud.com/docs/cloud_code_guide.html
