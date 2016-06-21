@@ -22,17 +22,15 @@
       return "[图片]";
     } else if (type == msgTypeAudio) {
       return "[语音]";
-    } else if (type == msgTypeLocation) {
-      return msg._lctext;
-    } else if (type == msgTypeSystem){
-      return "[系统消息]";
+    } else if (type == msgTypeLocation) { //位置消息
+      return "[" + msg._lctext + "]";
     } else if (type == msgTypeAnnouncement) {
       return "[公告]";
-    }else if (type == msgTypeVideo) {
+    } else if (type == msgTypeVideo) {
       return "[视频]";
-    }else if (type == msgTypeApply) {
+    } else if (type == msgTypeApply) {
       return "[报名]";
-    }else if (type == msgTypeVote) {
+    } else if (type == msgTypeVote) {
       return "[投票]";
     } else {
       return "[未知消息]";
@@ -55,28 +53,30 @@
   }
   //发送推送消息
   function sendAPNSMessage(req, res){
-    var pushMessage = getAPNSPushMessage(req.params,"");
+    var params = req.params
+    var contentStr = params.content;
+    var msg = JSON.parse(contentStr);
+    //系统消息跳过
+    if (msg._lctype == msgTypeSystem){
+      res.success({skip: true});
+      return;
+    }
+    var msgDesc = getMsgDesc(msg);
+    var alertStr = msg._lcattrs.cy_name + '：' + msgDesc;
+    var pushMessage = getAPNSPushMessage(params.convid,"");
     res.success({pushMessage: pushMessage});
   }
 
   //设置推送消息
-  function getAPNSPushMessage(params,userName) {
-    var contentStr = params.content;
+  function getAPNSPushMessage(convId,alertStr) {
     var json = {
       badge: "Increment",
       sound: "default",
-      convid: params.convId     //来支持点击弹框，跳转至相应对话
+      convid: convId     //来支持点击弹框，跳转至相应对话
       // ,"_profile": "dev"      //设置证书，开发时用 dev，生产环境不设置
     };
-    var msg = JSON.parse(contentStr);
-    var msgDesc = getMsgDesc(msg);
-    json.alert = msg._lcattrs.cy_name + '：' + msgDesc;
-
-  //  if (msg._lcattrs && msg._lcattrs.dev) {
-      //设置证书，开发时用 dev，生产环境不设置
-  //    json._profile = "dev";
-  //  }
-  return JSON.stringify(json);
-}
+    json.alert = alertStr;
+    return JSON.stringify(json);
+  }
 
   exports.receiversOffline = receiversOffline; // used by main.js
