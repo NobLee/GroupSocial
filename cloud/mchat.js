@@ -78,11 +78,8 @@ function getAPNSPushMessage(params,userName) {
   };
   var msg = JSON.parse(contentStr);
   var msgDesc = getMsgDesc(msg);
-  if (userName) {
-      json.alert = msg._lcattrs["cy_name"]  + ':' + msgDesc;
-  } else {
-      json.alert = msgDesc;
-  }
+  json.alert = msg._lcattrs["cy_name"]  + ':' + msgDesc;
+  
 //  if (msg._lcattrs && msg._lcattrs.dev) {
     //设置证书，开发时用 dev，生产环境不设置
 //    json._profile = "dev";
