@@ -23,15 +23,15 @@
     } else if (type == msgTypeAudio) {
       return "[语音]";
     } else if (type == msgTypeLocation) { //位置消息
-      return "[" + msg._lctext + "]";
+      return "[位置]" + msg._lctext;
     } else if (type == msgTypeAnnouncement) {
-      return "[公告]";
+      return "[公告]" + msg._lctext;
     } else if (type == msgTypeVideo) {
       return "[视频]";
     } else if (type == msgTypeApply) {
-      return "[报名]";
+      return "[报名]" + msg._lctext;
     } else if (type == msgTypeVote) {
-      return "[投票]";
+      return "[投票]" + msg._lctext;
     } else {
       return "[未知消息]";
     }
@@ -57,10 +57,10 @@
     var contentStr = params.content;
     var msg = JSON.parse(contentStr);
     //系统消息跳过
-    if (msg._lctype == msgTypeSystem){
-      res.success({skip: true});
-      return;
-    }
+    // if (msg._lctype == msgTypeSystem){
+    //   res.success({skip: true});
+    //   return;
+    // }
     var msgDesc = getMsgDesc(msg);
     var alertStr = msg._lcattrs.cy_name + '：' + msgDesc;
     var pushMessage = getAPNSPushMessage(params.convid,"");
