@@ -63,6 +63,9 @@
     // }
     var msgDesc = getMsgDesc(msg);
     var alertStr = msg._lcattrs.cy_name + '：' + msgDesc;
+    console.log(msg._lctext);
+    console.log(alertStr);
+
     var pushMessage = getAPNSPushMessage(params.convid,"");
     res.success({pushMessage: pushMessage});
   }
