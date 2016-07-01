@@ -62,11 +62,14 @@
     //   return;
     // }
     var msgDesc = getMsgDesc(msg);
-    var alertStr = msg._lcattrs.cy_name + '：' + msgDesc;
-    console.log(msg._lctext);
-    console.log(alertStr);
-
-    var pushMessage = getAPNSPushMessage(params.convid,"");
+    var userName = msg._lcattrs.cy_name
+    var alertStr;
+    if (userName) {
+      alertStr =  userName + '：' + msgDesc
+    }else{
+      alertStr = msgDesc
+    }
+    var pushMessage = getAPNSPushMessage(params.convid,alertStr);
     res.success({pushMessage: pushMessage});
   }
 
