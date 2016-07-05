@@ -23,7 +23,7 @@
     } else if (type == msgTypeAudio) {
       return "[语音]";
     } else if (type == msgTypeLocation) { //位置消息
-      return "[位置]" + msg._lctext;
+      return "[位置]" + msg._lctext.split("|").0;
     } else if (type == msgTypeAnnouncement) {
       return "[公告]" + msg._lctext;
     } else if (type == msgTypeVideo) {
